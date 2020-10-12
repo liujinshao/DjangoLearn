@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.banner{
+				width:520px;
+				height:265px;
+				margin: 0 auto;
+				position: relative;
+			}
+			ul{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			ul li{
+				width:520px;
+				position: absolute;
+				display: none;
+			}
+			ul li:first-child{
+				display: list-item;
+			}
+			.btn{
+				width:100%;
+				position: absolute;
+				top:120px;
+			}
+			.btn a{
+				display: inline-block;
+				width:60px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				background-color:rgba(0,0,0,.5);
+				text-decoration: none;
+				color:#fff;
+			}
+			.btn a.btn_right{
+				float: right;
+			}
+			.dot{
+				position: absolute;
+				bottom: 3px;
+				left:240px;
+			}
+			.dot span{
+				display: inline-block;
+				width:10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color:#999999;
+			}
+			.dot span.active{
+				background-color:#f00;
+			}
+			.pic img{
+				display: block;
+				width: 520px;
+			}
+		</style>
+		<script src="jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<div class="banner">
+			<ul class="pic">
+				<li><a href="#"><img src="imgs/ailun1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imgs/ailun2.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imgs/yan1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="imgs/yan8.jpg" alt="" /></a></li>
+			</ul>
+			<div class="btn">
+				<a href="javascript:;" class="btn_left">前一张</a>
+				<a href="javascript:;" class="btn_right">后一张</a>				
+			</div>
+			<div class="dot">
+				<span class="active"></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		var index=0
+		var len=$('.pic li').length
+		var setInter=''
+		// console.log(len)
+		function show_img(index){
+			$(".dot span").eq(index).addClass("active").siblings().removeClass("active")
+			$(".pic li").eq(index).stop(true,true).fadeIn(1000).siblings().stop(true,true).fadeOut(1000)
+		}
+		
+		function carousel(){
+			setInter=window.setInterval(function(){
+				$(".btn_right").trigger('click')
+			},3000)
+		}
+		carousel()
+		$(function(){
+			
+			$(".btn_left").click(function left_click(){
+				// console.log("点击了上一张",index)
+				show_img(index)
+				if(index<=0){
+					index=len
+				}
+				index--
+			})
+			$(".btn_right").click(function right_click(){
+				// console.log("点击了下一张",index)
+				index++
+				if(index>=len){
+					index=0
+					// console.log("1111",index)
+				}
+				show_img(index)
+			})
+			$(".banner").hover(function(event){
+				console.log("放上了")
+				// event.stopPropagation()
+				window.clearInterval(setInter)
+			},function(event){
+				console.log("拿开了")
+			
+				carousel()
+			})
+			
+			
+			
+		})
+	</script>
+	
+</html>

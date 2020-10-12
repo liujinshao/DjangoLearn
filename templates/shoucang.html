@@ -1,0 +1,31 @@
+{% extends "template1.html" %}
+  {% block title %}<title>我的收藏</title>{% endblock %}
+{% block main %}
+
+    {% for fav in data %}
+     <!-- 定义一个条目-->
+        <div class="pro">
+           <div class="img">
+               <img src="/media/{{ fav.user.axxuser.photo }}" />
+           </div>
+            <div class="cs">
+                <div class="up">
+                    <a href="detail.html">{{ fav.resource.resource_desc }}.{{ fav.resource.ext }}</a>
+                </div>
+                <div class="down">
+                    上传者：{{ fav.user.axxuser.nickname }}  收藏时间：{{ fav.create_time|date:"Y-m-d H:i:s" }}
+                </div>
+            </div>
+            <div class="arr">
+                <span>积分:<b>{{ fav.resource.score }}</b></span>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+
+    {% include "paginator.html" %}
+
+
+{% endblock %}

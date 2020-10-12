@@ -1,0 +1,20 @@
+{% extends "template1.html" %}
+{% block main %}
+
+    <!-- 网站主体 -->
+        <!-- 上传表单-->
+        <div class="upload reg2">
+			
+			<!-- 注册步骤导航-->
+			<div class="reg_step">
+				<a class="step1">注册信息</a><a class="step1">基本信息</a><a class="step">注册完成</a>
+			</div>
+            <hr />
+
+			<p style="text-align:center">
+				<b>欢迎{{ realname }}注册成功、您是本系统第{{ user }}位用户~</b><br/>
+				<a href="/">系统5s后会自动跳转到首页，如不能自动跳转，请点击跳转到首页</a>
+			</p>		
+        </div>
+
+{% endblock %}

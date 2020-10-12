@@ -1,0 +1,109 @@
+{% extends "template1.html" %}
+{% block title %}
+<title>个人积分</title>
+{% endblock %}
+{% block main %}
+        <div class="page_nav">
+			<p>当前积分：<span></span></p>
+
+		</div>
+		<div id="point_main" style="width: 800px;height:500px;"></div>
+
+{% endblock %}
+{% block script %}
+
+<script>
+
+    var option = {
+        title: {
+            text: '个人中心用户积分信息',
+            subtext: '积分统计',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: []
+        },
+        series: [
+            {
+                name: '积分来源',
+                type: 'pie',
+                radius: '75%',
+                center: ['50%', '55%'],
+                data: [
+                    {#{value: 335, name: '支付宝充值'},#}
+                    {#{value: 310, name: '用户注册'},#}
+                    {#{value: 234, name: '上传资源'},#}
+                    {#{value: 135, name: '评论资源'},#}
+                    {#{value: 1548, name: '下载文件'}#}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+$(function () {
+    $.ajax({
+        url:"/resource/point",
+        dataType:"json",
+        method:"post",
+        data:{},
+        success:function (data) {
+            let $legend=[]
+            let $sum=0
+
+            data=data.map(remarkObj  =>{      //使用map把每条数据映射成一个对象
+                console.log(remarkObj)
+                $legend.push(remarkObj.remark)
+                $sum+=remarkObj.value
+                return {name:remarkObj.remark,value:remarkObj.value>0?remarkObj.value:remarkObj.value * -1}
+            })
+
+             console.log(data)
+            option.series[0].data=data
+            option.legend.data=$legend
+
+            $(".page_nav span").text($sum)
+            echarts.init(document.getElementById('point_main')).setOption(option);
+        }
+    })
+
+
+})
+
+</script>
+{% endblock %}
+
+
+
+
+{#-- 查看 昨日 每个小时的用户注册人数 #}
+{##}
+{#-- 获取昨日的时间#}
+{#from datetime import datetime , timedelta #}
+{##}
+{#time = datetime.now() - timedelta(days=1)#}
+{## 获取 字符串表示的时间，精确到 天 #}
+{#time = time.strftime('%Y-%m-%d')#}
+{##}
+{#from django.db.models.functions import TruncHour#}
+{#from django.db.models import Count#}
+{##}
+{#queryset = User.objects.filter(date_joined__date=time)#}
+{##}
+{#queryset.annotate(hour=TruncHour('date_joined')).values("hour").anotate(Count("hour"))#}
+{##}
+
+
+	
+

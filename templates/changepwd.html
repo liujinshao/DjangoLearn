@@ -1,0 +1,81 @@
+{% extends "template1.html" %}
+{% block title %}
+<title>修改密码</title>
+{% endblock %}
+
+{% block main %}
+<!-- 上传表单-->
+            <div class="upload">
+            <p>修改密码</p>
+            <hr />
+            <form action="/user/changepwd" method="post">
+				<span>
+					<label>旧密码：</label>
+					<input class="upt" type="password" name="pwd_old" value="" />
+                    <b></b>
+                    <b></b>
+				</span>
+				<span>
+					<label>新密码：</label>
+					<input class="upt" type="password" name="password" value="" />
+					<b>密码长度为6-20位</b>
+				</span>
+				<span>
+					<label>确认密码：</label>
+					<input class="upt" type="password" name="pwd" value="" />
+					<b>两次输入的密码必须保持一致</b>
+				</span>
+
+                <span><label class="btn"><input type="button" value="确认修改" /></label></span>
+            </form>
+        </div>
+{% endblock %}
+
+{% block script %}
+{#    yJYHgQ#}
+    <script>
+
+    $(function () {
+        var proof=0
+        $("[name=pwd_old]").blur(function () {
+            pwd_old=$(this).val()
+            console.log(pwd_old)
+            $.ajax({
+                url:"/user/checkpwd",
+                method:"post",
+                dataType:"json",
+                data:{pwd_old:pwd_old},
+                success:function (data) {
+                     $("[name=pwd_old]").next("b").text(data.msg)
+                        if (data.proof) {
+                            proof=1
+                            console.log("真",proof)
+                            return true
+
+                        }else {
+                            console.log("假",proof)
+                            proof=0
+                            return false
+                        }
+                }
+            })
+
+
+        })
+
+
+
+        $(".btn input").click(function () {
+            if (proof==1) {
+                console.log(proof)
+                if (confirm("确认要修改吗？")) {
+                    console.log("点击了提交")
+                    $(this).parents("form").submit()
+                }
+            }
+    })
+
+    })
+    
+    </script>
+{% endblock %}

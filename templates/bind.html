@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./css/index.css"/>
+	<script src="./js/jquery-3.2.1.min.js"></script>
+    <title>支付宝-账户绑定</title>
+	
+</head>
+<body>
+    <div class="header">
+		<div class="lf">
+			<a href="index.html">首页</a>
+			<a href="bbs.html">论坛</a>
+			<a href="upload.html">上传资料</a>
+		</div>
+		
+		<div class="rf">
+			<a href="personal.html">个人信息</a>
+			<a href="shoucang.html">我的收藏</a>
+			<a href="point.html">积分</a>
+			<a>退出登录</a>
+		</div>
+	</div>
+	
+    <!-- 网站主体 -->
+    <div id="main">
+        <div class="upload reg2">
+			<p>
+				<label>账号绑定</label>
+				<a class="bind" href="register.html">如果没有账号，请点击注册</a>
+			</p>
+					
+			<hr />
+			<form action="/third/bind" autocomplete="off" id="myform" method="post">
+				<span>
+					<label>手机号：</label>
+					<input id="tel" class="upt" type="text" name="tel" value=""/>
+					<b></b>
+					<b></b>
+				</span>
+				<span>
+					<label>密码：</label>
+					<input id="password" class="upt" type="password" name="password" value="" />
+					<b>密码长度为6-20位</b>
+				</span>
+				<span>
+					<label class="btn">
+						<input id="reg" type="button" form="myform" value="确认绑定" />
+					</label>
+				</span>
+
+			</form>
+		</div>
+
+    </div>
+	
+</body>
+
+</html>

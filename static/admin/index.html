@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <title>首页</title>
+	<script src="../js/jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+    
+    <!-- 网站头信息-->
+    <div id="nav"></div>
+
+    <!-- 网站主体 -->
+    <div id="admin">
+        <div class="admin_lt">
+            <ul>
+                <li class="admin_mod">
+                    <span class="md"><a>资源管理</a><b>···</b></span>
+                    <ul>
+                        <li class="ml"><a>资源审核</a></li>
+                        <li class="ml"><a>已发布资源</a></li>
+                        <li class="ml"><a>未通过资源</a></li>
+                    </ul>
+                </li>
+                <li class="admin_mod">
+                    <span class="md"><a>评论管理</a><b>···</b></span>
+                    <ul>
+                        <li class="ml"><a>评论审核</a></li>
+                        <li class="ml"><a>已审核评论</a></li>
+                        <li class="ml"><a>未通过评论</a></li>
+                    </ul>
+                </li>
+                <li class="admin_mod">
+                    <span class="md"><a>积分管理</a><b>···</b></span>
+                    <ul>
+                        <li class="ml"><a>积分查询</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="admin_rt">
+            <iframe src="source.html" scrolling="no"></iframe>
+        </div>
+    </div>
+</body>
+	<script type="text/javascript">
+		$(function(){
+		
+			// data 方法， 可以在指定的元素中，缓存任意类型的数据（通过检查都看不到）
+			
+			$(".admin_mod>span").click(function(){
+				var cur=$(this)
+				var f=cur.data("f")==null?true:cur.data("f")
+				console.log(f,"1")
+				cur.next('ul').slideToggle(function(){
+					console.log("111")
+					f=!f
+					console.log(f,"2")
+					if(f){
+						console.log("22")
+						cur.find('b').text("~")
+					}else{
+						console.log("33")
+						cur.find('b').text("···")
+					}
+					cur.data("f", f)
+				})
+				
+			})
+		})
+	</script>
+</html>

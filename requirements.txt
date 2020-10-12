@@ -1,0 +1,6 @@
+django
+mysqlclient
+rsa
+celery
+redis
+eventlet

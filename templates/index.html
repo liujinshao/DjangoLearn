@@ -1,0 +1,115 @@
+{% extends "template1.html" %}
+{% block cvs %}
+<!-- 登录弹出层 -->
+    <div class="cvs"
+            {% if not msg %}
+                style="display:none"
+            {% endif %}
+         id="cvs2_logon">
+        <div class="newModWin">
+            <div class="title">登录爱下下账号 </div>
+            <div class="close" id="cvs2_close">X</div>
+
+            <div class="logWin">
+                <form action="/user/user_login" method="post">
+                    <input type="hidden" name="url" value="{{ request.GET.url }}"> {# 设置一个隐藏的用于传输跳转登陆前的路由 #}
+                    <input type="text" class="inp user" name="name" autocomplete="off" placeholder="请输入用户名" />
+                    <input type="password" class="inp pass" name="password" autocomplete="off" placeholder="请输入密码" />
+                    <!-- <b> 显示登录失败错误信息 -->
+					<b class="msg">{{ msg | default:""}}</b>
+					<a href="/user/pwd" class="find_pass">忘记密码，立即找回</a>
+                    <input type="submit" class="su_btn" value="登录" />
+                    <a href="/user/register" class="reg">注册</a>
+					<p class="third">
+						<a class="zfb"><span>支付宝</span></a>
+						<a class="wx"><span>微信</span></a>
+						<a class="qq"><span>QQ</span></a>
+					</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block nva %}
+    <!-- 网站头信息-->
+    <div id="nav">
+        <div id="search">
+            <input type="text" name="name" autocomplete="off"/><a class="search btn">搜索</a>
+        </div>
+
+        <div id="logon">
+            <div class="cons">
+                欢迎光临爱下下！
+            </div>
+            <div class="opers">
+				<a class="btn" href="/resource/upload">上传资料</a>
+            </div>
+        </div>
+
+        <div id="login">
+            {% if request.session.login_id %}
+                <img  src="/photo" />
+            {% else %}
+                <a href="javascript:void(0);" onclick="show_win()">点击登录</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+    <!-- 网站主体 -->
+{% load extra_filter %}
+{%  block main %}
+        <!-- 定义一个条目-->
+    {% for data in data %}
+
+        <div class="pro">
+           <div class="img">
+               <img src="/static/images/{{ data.ext|ext }}.svg" />
+           </div>
+            <div class="cs">
+                <div class="up">
+                    <a href="/resource/detail/{{ data.id }}">{{data.resource_name}}</a>
+                </div>
+                <div class="down">
+                    <span>{{data.create_time}}</span>
+                    <span>{{ data.user.axxuser.nickname }}</span>
+                </div>
+            </div>
+            <div class="arr">
+                <span>积分:<b>{{ data.score }}</b></span>
+				<span>访问次数:<b>1</b></span>
+            </div>
+        </div>
+ {% endfor %}
+
+ {% include "paginator.html" %}
+        
+
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+     function show_win(){
+             $("#cvs2_logon").show()
+    }
+
+    $(function(){
+
+        $("#cvs2_close").on("click",function(event){
+            console.log("11111111")
+            $("#cvs2_logon").hide()
+
+            })
+        $(document).on("keydown",function(event){
+            console.log(event)
+            if(event.keyCode==27){
+                $("#cvs2_logon").hide()
+            }
+        })
+    })
+	</script>
+{% endblock %}
+
+

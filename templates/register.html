@@ -1,0 +1,120 @@
+
+{#{% include "template1.html" %}#}
+{% extends "template1.html" %}
+
+{% block main %}
+        <!-- 上传表单-->
+        <div class="upload reg2">
+
+			<!-- 注册步骤导航-->
+			<div class="reg_step">
+				<a class="step">注册信息</a><a class="step2">基本信息</a><a class="step2">注册完成</a>
+			</div>
+            <hr />
+
+            <form action="/user/register" autocomplete="off" id="myform" method="post">
+
+                <span>
+                    <label>手机号：</label>
+                    <input id="name" class="upt" type="text" name="phone" value="{{ phone }}"/>
+                    <b class="phone_msg">{{ phone_msg }}</b>
+                    <b></b>
+
+                </span>
+                <span>
+                    <label>密码：</label>
+                    <input id="password" class="upt" type="password" name="password" value="123456" />
+                    <b>密码长度为6-20位</b>
+                    <b></b>
+                </span>
+                <span>
+                    <label>确认密码：</label>
+                    <input id="confirmPass" class="upt" type="password"  value="123456" />
+                    <b>两次输入的密码必须保持一致</b>
+                    <b></b>
+                </span>
+                <span>
+                    <label>电子邮箱：</label>
+                    <input id="email" class="upt" type="text" name="email" value="{{ email }}" />
+                    <b class="email_msg">{{ email_msg}}</b>
+                    <b>您丢失密码后找回密码的凭证</b>
+
+                </span>
+				<div class="reg">
+					<input id="reg" type="button" value="下一步" />
+				</div>
+            </form>
+        </div>
+{% endblock %}
+{% block script %}
+ <script>
+		$(function(){
+		    //校验名字
+		    {#function check_name(){#}
+			{#	// console.log("鼠标离开了")#}
+			{#	var phone=$(this).val()#}
+			{#	var regex1=/^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/#}
+			{#	// console.log(phone,typeof(phone))#}
+			{#	// console.log(regex1.test(phone))#}
+			{#	if(!regex1.test(phone)){#}
+			{#		// console.log(regex1.test(phone))#}
+			{#		$(this).next("b").text("手机号格式不正确")#}
+            {#        return false#}
+			{#	}else{#}
+			{#		$(this).next("b").text("")#}
+            {#        return true#}
+			{#	}#}
+			//}
+			{#$("#name").blur(check_name)#}
+			{#var pwd1=""#}
+            {#//校验密码#}
+            {#function check_password(){#}
+			{#	var pwd=$(this).val()#}
+			{#	var regex2=/^\w{6,20}$/#}
+			{#	console.log(pwd)#}
+			{#	if(!regex2.test(pwd)){#}
+			{#		console.log(regex2.test(pwd))#}
+			{#		$(this).next("b").text("密码格式不正确")#}
+            {#        return false#}
+			{#	}else{#}
+			{#		pwd1=pwd#}
+			{#		$(this).next("b").text("")#}
+            {#        return true#}
+			{#	}#}
+			//}
+			{#$("#password").blur(check_name)#}
+            {#//再次校验密码#}
+            {#function check_pwd(){#}
+			{#	var pwd=$(this).val()#}
+			{#	// console.log(pwd1,"111")#}
+			{#	if(pwd1!=pwd){#}
+			{#		$(this).next("b").text("两次密码不一致")#}
+            {#        return false#}
+			{#	}else{#}
+			{#		$(this).next("b").text("")#}
+            {#        return true#}
+			{#	}#}
+			//}
+			{#$("#confirmPass").blur(check_name)#}
+			$("#reg").on("click", function(){
+				console.log("sss")
+                //if (check_name&&check_password&&check_pwd){
+
+                $(this).parents("form").submit()
+               // }else {
+                 //   alert("请核查信息")
+              //  }
+
+
+			})
+		})
+
+	</script>
+{% endblock %}
+
+
+	
+	
+
+
+

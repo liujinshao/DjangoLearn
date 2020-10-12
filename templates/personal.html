@@ -1,0 +1,79 @@
+{% extends "template1.html" %}
+{% block title %}
+<title>个人信息</title>
+{% endblock %}
+
+{% load extra_filter %}
+{% block cvs %}
+	<!-- 充值窗口 -->
+	<div class="cvs" id="cvs2_logon" style="display:none">
+		<div class="zfb_win">
+			<div class="title">支付宝充值</div>
+			<div class="close" id="cvs2_close">X</div>
+			<div class="zfb">
+				<input type="number" name="money" />
+				<input type="button" class="zfb_btn" value="充值" />
+				<div style="clear: both;"></div>
+				<p class="msg">充值比例：1元=10积分</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block main %}
+<div class="personal">
+			<div class="lf">
+				<img src="{% url 'get_photo'  %}  "alt="用户头像"/>
+			</div>
+
+			<div class="rf">
+				<div>
+					<span>{{ data.nickname }}</span>
+					<span>
+						<b>{{ data.realname}}</b> | <b>{{ data.sex|check}}</b> |  <b>{{data.birth}}</b>
+						<b><a href="/user/changepwd">修改密码</a></b>
+					</span>
+				</div>
+
+				<div>
+					<span>
+						<b>{{ score.score }}</b>积分
+						<a title="积分不够、请点击充值" href="javascript:$('#cvs2_logon').show();">支付宝充值</a>
+					</span>
+					<span><b>0</b>关注</span>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+		$(function() {
+		    $(".zfb_btn").click(function () {
+                var money=$(this).prev("input").val()
+                console.log(money)
+                if (money<1){
+                    alert("重置金额不能小于一元")
+                }else{
+                    window.location.href='/extra/zfb_recharge?m='+money
+                }
+            })
+
+
+			$("#cvs2_close").on("click", function(){
+				$("#cvs2_logon").hide();
+			})
+			// 通过 ESC 关闭弹出层
+			$(document).on("keydown", function(event){
+				// 判断是否按下了ESC
+				if (event.keyCode == 27) {
+					// 手动调用 X 对应的单击事件
+					$("#cvs2_close").trigger("click");
+				}
+			})
+		})
+	</script>
+{% endblock %}
+

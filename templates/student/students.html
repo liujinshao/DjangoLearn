@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="/static/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div>这里是测试通用视图界面</div>
+     <table border="1">
+                <tr>
+                    <th>昵称</th>
+                    <th>注册时间</th>
+                    <th colspan="2">操作</th>
+
+                </tr>
+{#            {% for info in axxuserinfo_list %}#}
+{#                <tr>#}
+{#                    <td>{{ info.nickname }}</td>#}
+{#                    <td>{{ info.date_joined|date:"Y-m-d H:i:s" }}</td>#}
+{#                    <td>修改</td>#}
+{#                    <td>删除</td>#}
+{##}
+{#                </tr>#}
+{#            {% endfor %}#}
+        </table>
+
+        <div>
+            <button id="btn" >按钮</button>
+
+
+            <a href="/extra/aaaaaa">按钮2</a>
+            <div>{{ pk}}1</div>
+        </div>
+
+</body>
+
+<script>
+    $(function () {
+        $("#btn").click(function () {
+            console.log("点击了")
+            {#$.ajax({#}
+            {#    url:"/extra/aaaaaa",#}
+            {#    dataType:"json",#}
+            {#    data:{www:"www"},#}
+            {#    method:"post",#}
+            {#    success:function (data) {#}
+            {#        #}
+            {#    }#}
+            //})
+
+
+        })
+    })
+
+
+</script>
+
+</html>

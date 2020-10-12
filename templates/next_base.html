@@ -1,0 +1,83 @@
+{% extends "template1.html" %}
+
+{% block main %}
+ <!-- 上传表单-->
+        <div class="upload reg2">
+			<!-- 显示图片-->
+			<div id="show_photo"><img src="" alt=""></div>
+			<!-- 注册步骤导航-->
+			<div class="reg_step">
+				<a class="step1">注册信息</a><a class="step">基本信息</a><a class="step2">注册完成</a>
+			</div>
+            <hr />
+
+            <form action="/user/next_reg/{{ pk }}" id="myform" method="post" autocomplete="off" enctype="multipart/form-data">
+                <span>
+                    <label>用户头像：</label>
+                    <input class="upt" type="text" readonly="readonly"/>
+                    <input class="upt" type="file" name="photo" value=""/>
+                    <b>文件格式可以是jpg,gif,png等图片格式</b>
+                </span>
+                <span>
+                    <label>出生日期：</label>
+                    <input id="tel" class="upt" type="date" name="birth" value="2020-02-02" />
+                </span>
+
+				<span>
+                    <label>昵称：</label>
+                    <input id="nickname" class="upt" type="text" name="nickname" value="六瑾" />
+                    <b></b>
+                </span>
+
+				<span>
+                    <label>真实姓名：</label>
+                    <input id="realname" class="upt" type="text" name="realname" value="liujin" />
+                    <b></b>
+                </span>
+
+				<span>
+                    <label>性别：</label>
+                    <select name="sex" class="upt">
+                        <option value="m" >男</option>
+                        <option value="f">女</option>
+                        <option value="s" selected>保密</option>
+                    </select>
+                </span>
+
+                <div class="reg">
+                	<input id="reg" type="button" value="下一步" />
+                </div>
+            </form>
+        </div>
+{% endblock %}
+
+{% block script %}
+	<script>
+        $(function () {
+            $("[type=file]").change(function () {
+                let file=this.files[0]
+                {#console.log(file)#}
+                let file_name=file.name
+                let size=file.size
+                {#console.log(file_name,size)#}
+                $(this).prev().val(file_name)
+                //预览图片
+                let photo =new FileReader()
+                photo.readAsDataURL(file)
+                {#console.log(photo)#}
+                photo.onload=function(){
+                    let dataurl=photo.result
+                    let img_tag=`<img src="${dataurl}">`
+                    $("#show_photo").html(img_tag)
+                }
+            })
+
+
+
+            $("#reg").on("click", function(){
+			    $(this).parents("form").submit()
+		    })
+        })
+
+	</script>
+{% endblock %}

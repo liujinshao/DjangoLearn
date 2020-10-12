@@ -1,0 +1,109 @@
+<!--
+1. 如果总页数 <= 5 ,  页码实现 1-总页数
+2. 如果 总页数 大于 5、 且 当前页 <=3 ， 显示 1-5
+3. 如果 总页数 大于 5、 且 当前页 page > 3 , 且 page + 2 <=总页数 ,  显示  page - 2 ===== page + 2
+4. 如果 总页数 大于 5、 且 当前页 + 2 > 总页数      显示  最后五页
+
+-->
+{% load extra_filter %}
+
+<div class="panigation">
+    {% if data.has_previous %}
+        <a href="?page={{ data.previous_page_number }}">&lt;上一页</a>
+    {% else %}
+        <a href="javascript:void(0)">&lt;上一页</a>
+    {% endif %}
+
+    {% if data.paginator.num_pages <= 5 %}
+
+        {% for k in "0"|rjust:data.paginator.num_pages %}
+            {% if data.number == forloop.counter %}
+                <a class="act" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            {% else %}
+                <a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            {% endif  %}
+
+        {% endfor %}
+
+    {% endif  %}
+
+
+    {% if data.paginator.num_pages > 5 and data.number <= 3  %}
+
+        {% for k in "0"|rjust:5 %}
+
+            {% if data.number == forloop.counter %}
+                <a class="act" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            {% else %}
+                <a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            {% endif  %}
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    {% if data.paginator.num_pages > 5 and data.number > 3 and data.number|add:2 <= data.paginator.num_pages %}
+
+        {% for k in "0"|rjust:5 %}
+
+            {% if data.number|sub:2|add:forloop.counter0 == data.number %}
+                <a class="act" href="?page={{ data.number|sub:2|add:forloop.counter0 }}">{{ data.number|sub:2|add:forloop.counter0 }}</a>
+
+            {% else %}
+                <a href="?page={{ data.number|sub:2|add:forloop.counter0 }}">{{ data.number|sub:2|add:forloop.counter0 }}</a>
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    {% if data.paginator.num_pages > 5 and data.number|add:2 > data.paginator.num_pages %}
+
+        {% for k in "0"|rjust:5 %}
+
+            {% if data.number == data.paginator.num_pages|sub:4|add:forloop.counter0 %}
+                <a class="act" href="?page={{ data.paginator.num_pages|sub:4|add:forloop.counter0 }}">{{ data.paginator.num_pages|sub:4|add:forloop.counter0 }}</a>
+            {% else %}
+                <a href="?page={{ data.paginator.num_pages|sub:4|add:forloop.counter0 }}">{{ data.paginator.num_pages|sub:4|add:forloop.counter0 }}</a>
+            {% endif  %}
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    {% if data.has_next %}
+        <a href="?page={{ data.next_page_number }}">下一页&gt;</a>
+    {% else %}
+        <a href="javascript:void(0)">下一页&gt;</a>
+    {% endif %}
+
+    <select id="paginator">
+        {% for k in "0"|rjust:data.paginator.num_pages %}
+            <option {% if forloop.counter == data.number%} selected {% endif %} value="{{ forloop.counter }}">{{ forloop.counter }}/{{ data.paginator.num_pages}}</option>
+        {% endfor %}
+
+    </select>
+</div>
+
+
+<script>
+
+    $(function(){
+
+
+        $("#paginator").on("change", function(){
+
+            // 获取被选中的option 对应的页码
+            let page = $(this).find("option:selected").val()
+
+            window.location.href = "?page=" + page ;
+
+        })
+
+
+    })
+
+</script>

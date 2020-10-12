@@ -1,0 +1,30 @@
+{% extends "template1.html" %}
+{% block title %}
+<title>我的关注</title>
+{% endblock %}
+
+
+{% block main %}
+<div style="text-align: center ;display: block ;width: 80% ;align-content: center">
+    <h1>我的关注</h1>
+
+        <tr>
+            <th>昵称</th>
+        </tr>
+        {% for att in attention %}
+            <tr>
+            <td>{{ att.usered.axxuser.nickname }}</td>
+             </tr>
+        {% endfor %}
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

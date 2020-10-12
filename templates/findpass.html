@@ -1,0 +1,80 @@
+{% extends "template1.html" %}
+
+{% block title %}
+<title>密码找回</title>
+{% endblock %}
+
+{% block main %}
+
+ <!-- 上传表单-->
+        <div class="upload">
+            <p>密码找回</p>
+            <hr />
+            <form  method="post">
+                <span>
+                    <label>找回方式：</label>
+                    <select class="upt" >
+                        <option selected="selected">邮件找回</option>
+{#						<option>电话找回</option>#}
+                    </select>
+                </span>
+				<span>
+                    <label>输入账号：</label>
+                    <input class="upt" type="text" name="phone" value="" />
+                     <b></b>
+                     <b>请输入您要找回的账号</b>
+                </span>
+
+                <span>
+                    <label>输入邮件/电话：</label>
+                    <input class="upt" type="text" name="email" value="" />
+                    <b></b>
+                    <b>请输入注册时绑定的邮箱</b>
+                </span>
+
+				<!--
+					<span>
+						<label>新密码：</label>
+						<input class="upt" type="password" name="" value="" />
+						<b>密码长度为6-20位</b>
+					</span>
+					<span>
+						<label>确认密码：</label>
+						<input class="upt" type="password" name="" value="" />
+						<b>两次输入的密码必须保持一致</b>
+					</span>
+				-->
+                <span><label class="btn"><input type="button" id="button" value="确认找回" /></label></span>
+            </form>
+        </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+    $(function () {
+
+
+        $("#button").click(function () {
+            var phone=$("[name=phone]").val()
+            var email=$("[name=email]").val()
+            console.log(phone,email)
+
+             $.ajax({
+            url:"/user/pwd",
+            dataType:"json",
+            method:"post",
+            data:{phone:phone,email:email},
+
+            success:function (data) {
+                console.log(data,data.msg)
+                $("[name=email]").next('b').text(data.msg)
+            }
+        })
+        })
+
+
+    })
+    
+    
+    </script>
+{% endblock %}
